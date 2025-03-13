@@ -1,0 +1,35 @@
+.sidenav-container {
+    height: 100%;
+   
+   
+}
+.sidenav { 
+   
+    width: 200px;
+     background-color: #007bff;
+}
+
+.sidenav .mat-toolbar {
+     color: white;
+    background: inherit;
+}
+.mat-sidenav-content{
+  
+
+}
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+span{
+    color: white;
+}
+.logout{
+
+    padding: 10px;
+    background-color: #007bff;
+    margin-top: 29rem;
+    margin-left: 25%;
+    font-size: 14pt;
+}

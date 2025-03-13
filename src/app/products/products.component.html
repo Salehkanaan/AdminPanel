@@ -1,0 +1,21 @@
+<h2>Product List</h2>
+<button class="btn-primary" (click)="router.navigate(['/products/new'])">Add New Product</button>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Category</th>
+
+
+  </tr>
+  <tr *ngFor="let product of products">
+    <td>{{ product.name }}</td>
+    <td>{{ product.price | currency }}</td>
+    <td>{{ product.category }}</td>
+    <td class="button-group">
+      <button class="btn-edit" (click)="editProduct(product.id)">Edit</button>
+      <button class="btn-warning" (click)="deleteProduct(product.id)">Delete</button>
+    </td>
+  </tr>
+</table>

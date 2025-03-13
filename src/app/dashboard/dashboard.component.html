@@ -1,0 +1,56 @@
+<div class="dashboard-container">
+  <!-- Stats Cards -->
+  <div class="stats-cards">
+    <div class="card">
+      <h3>Orders</h3>
+      <p>{{ ordersCount }}</p>
+    </div>
+    <div class="card">
+      <h3>Products</h3>
+      <p>{{ productsCount }}</p>
+    </div>
+    <div class="card">
+      <h3>Users</h3>
+      <p>{{ usersCount }}</p>
+    </div>
+  </div>
+
+  <!-- Tables -->
+  <div class="tables">
+    <div class="table-container">
+      <h3>Latest 5 Products</h3>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Category</th>
+        </tr>
+        <tr *ngFor="let product of latestProducts">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.category }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <h3>Latest 5 Orders</h3>
+      <table>
+        <tr>
+          <th>Order id</th>
+          <th>CustomerName</th>
+          <th>TotalAmount</th>
+          <th>Status</th>
+          <th>Transaction Date</th>
+        </tr>
+        <tr *ngFor="let order of latestOrders">
+        <td>{{ order.id }}</td>
+    <td>{{order.customerName}}</td>
+    <td>{{ order.totalAmount| currency }}</td>
+    <td>{{ order.status }}</td>
+    <td>{{order.date.toString().split('T')[0]}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

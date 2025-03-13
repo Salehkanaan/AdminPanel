@@ -1,0 +1,25 @@
+<h2>Order List</h2>
+<button class="btn-primary" (click)="router.navigate(['/orders/new'])">Create New Order</button>
+
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>CustomerName</th>
+    <th>TotalAmount</th>
+    <th>Status</th>
+    <th>Transaction Date</th>
+    
+  </tr>
+  <tr *ngFor="let order of orders">
+    <td>{{ order.id }}</td>
+    <td>{{order.customerName}}</td>
+    <td>{{ order.totalAmount| currency }}</td>
+    <td>{{ order.status }}</td>
+    <td>{{order.date.toISOString().split('T')[0]}}</td>
+    <td class="button-group">
+      <button class="btn-edit" (click)="editOrder(order.id)">Edit</button>
+      <button class="btn-warning" (click)="deleteOrder(order.id)">Delete</button>
+    </td>
+  </tr>
+</table>

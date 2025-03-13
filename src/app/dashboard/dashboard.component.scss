@@ -1,0 +1,47 @@
+.dashboard-container {
+    padding: 20px;
+
+    .stats-cards {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: white;
+    }
+
+    .card {
+        background: #ff00ea;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 30%;
+        text-align: center;
+    }
+
+    .tables {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .table-container {
+        width: 48%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background: #007bff;
+        color: white;
+    }
+}

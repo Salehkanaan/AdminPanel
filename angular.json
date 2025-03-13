@@ -32,7 +32,42 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+             "src/styles.scss",
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              
+              {
+                "input": "node_modules/@ionic/angular/css/core.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/normalize.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/structure.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/typography.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/display.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/padding.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/float-elements.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-alignment.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-transformation.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/flex-utils.css"
+              },
+              {
+                "input": "src/theme/variables.css"
+              }
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -96,12 +131,51 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
             "scripts": []
           }
+        },
+        "ionic-cordova-serve": {
+          "builder": "@ionic/angular-toolkit:cordova-serve",
+          "options": {
+            "cordovaBuildTarget": "adminpanel:ionic-cordova-build",
+            "devServerTarget": "adminpanel:serve"
+          },
+          "configurations": {
+            "production": {
+              "cordovaBuildTarget": "adminpanel:ionic-cordova-build:production",
+              "devServerTarget": "adminpanel:serve:production"
+            }
+          }
+        },
+        "ionic-cordova-build": {
+          "builder": "@ionic/angular-toolkit:cordova-build",
+          "options": {
+            "browserTarget": "adminpanel:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "adminpanel:build:production"
+            }
+          }
         }
       }
+    }
+  },
+  "cli": {
+    "analytics": "e2db234f-bfc5-4d18-8e09-95f969ee09ba",
+    "schematicCollections": [
+      "@ionic/angular-toolkit"
+    ]
+  },
+  "schematics": {
+    "@ionic/angular-toolkit:component": {
+      "styleext": "scss"
+    },
+    "@ionic/angular-toolkit:page": {
+      "styleext": "scss"
     }
   }
 }

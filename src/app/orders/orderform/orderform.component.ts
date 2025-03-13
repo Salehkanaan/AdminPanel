@@ -1,0 +1,58 @@
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonEngine } from '@angular/ssr/node';
+import { Order } from '../order';
+import { OrderService } from '../order.service';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { IonDatetime } from '@ionic/angular/standalone';
+@Component({
+  selector: 'app-orderform',
+  templateUrl: './orderform.component.html',
+  styleUrls: ['./orderform.component.scss'],
+  imports:[CommonModule,FormsModule,RouterModule,
+    IonDatetime
+  ]
+})
+export class OrderformComponent  implements OnInit {
+
+  order: Order = {
+    id: 0,
+    customerName:'',
+    totalAmount: 0,
+    status:'',
+    date: new Date(),
+    };
+    isUpdate:boolean=false;
+    isEditing: boolean = false;
+   
+    constructor(
+      private orderService: OrderService,
+      private route: ActivatedRoute,
+      public router: Router
+    ) { }
+  
+    ngOnInit() {
+      const id = this.route.snapshot.paramMap.get('id');
+      if (id) {
+        this.isEditing = true;
+        this.isUpdate=true;
+        let id1 = parseInt(id);
+        this.orderService.getOrderById(id1).subscribe((order) => {
+          if (order) this.order = order;
+        });
+      }
+    }
+  
+    saveOrder() {
+      if (this.isEditing) {
+        this.orderService.updateOrder(this.order);
+      } else {
+        this.orderService.addOrder(this.order);
+      }
+      this.router.navigate(['/orders']);
+    }
+}

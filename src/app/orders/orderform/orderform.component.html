@@ -1,0 +1,34 @@
+<div class="order-form-container">
+  <h2>{{ isEditing ? 'Edit Order' : 'Add New Order' }}</h2>
+  <form (ngSubmit)="saveOrder()" >
+    <div class="form-group">
+      <label>Id:</label>
+      <input type="text" [(ngModel)]="order.id" [disabled]="isUpdate" name="id" required class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>Customer Name:</label>
+      <input type="text" [(ngModel)]="order.customerName" [disabled]="isUpdate" name="customerName" required class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label>TotalAmount:</label>
+      <input type="number" [(ngModel)]="order.totalAmount" [disabled]="isUpdate" name="totalAmount" required class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label>Status:</label>
+      <input type="text" [(ngModel)]="order.status" name="status" required class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label>Date:</label>
+      <input type="datetime" [(ngModel)]="order.date.toISOString().split('T')[0]" name="date" [disabled]="isUpdate" class="form-control"/>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-success">{{ isEditing ? 'Update' : 'Create' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/orders'])">Cancel</button>
+    </div>
+
+  </form>
+</div>

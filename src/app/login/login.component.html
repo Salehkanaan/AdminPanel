@@ -1,0 +1,31 @@
+<form>
+<h1>Welcome To Admin Panel</h1>
+    <div class="form-group">
+        <input 
+        #emailControl="ngModel"
+         appEmailvalidator 
+         appHover
+          color="red"
+         type="text" 
+         class="form-control"
+         name="name"
+          [(ngModel)]="email"
+           placeholder="email" />
+
+        <!-- {{emailControl.errors|json}} -->
+    </div>
+    <div class="form-group">
+
+        <input 
+         type="password"
+          class="form-control"
+           name="name"
+         [(ngModel)]="password"
+            placeholder="type your password" />
+    </div>
+    <div class="form-group">
+        <button 
+        class="btn btn-primary" (click)="login()">
+        login</button>
+    </div>
+</form>
