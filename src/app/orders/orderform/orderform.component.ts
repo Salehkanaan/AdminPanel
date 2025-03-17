@@ -12,6 +12,7 @@ import { IonDatetime } from '@ionic/angular/standalone';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-orderform',
+  standalone: true,
   templateUrl: './orderform.component.html',
   styleUrls: ['./orderform.component.scss'],
   imports:[CommonModule,FormsModule,RouterModule,

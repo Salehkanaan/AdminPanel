@@ -9,6 +9,7 @@ import { PrerenderFallback } from '@angular/ssr';
 
 @Component({
   selector: 'app-product-form',
+  standalone: true,
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss'],
   imports: [CommonModule, FormsModule,]
