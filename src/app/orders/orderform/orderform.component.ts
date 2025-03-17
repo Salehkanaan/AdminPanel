@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
   templateUrl: './orderform.component.html',
   styleUrls: ['./orderform.component.scss'],
   imports:[CommonModule,FormsModule,RouterModule,
-    IonDatetime
+    
   ]
 })
 export class OrderformComponent  implements OnInit {
