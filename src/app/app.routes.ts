@@ -9,14 +9,15 @@ import { OrderformComponent } from './orders/orderform/orderform.component';
 import { loginGuard } from './guard/login.guard';
 
 export const routes: Routes = [
+ 
   { path: 'login', component: LoginComponent},
   { path: 'dashboard', component: DashboardComponent,canActivate:[loginGuard] },
   { path: 'products', component: ProductsComponent,canActivate:[loginGuard]},
   { path: 'products/new', component: ProductFormComponent ,canActivate:[loginGuard]},
-  { path: 'products/edit/:id', component: ProductFormComponent,canActivate:[loginGuard] },
+  { path: 'products/edit/:id', component: ProductFormComponent, canActivate: [loginGuard], data: { renderMode: 'ssr' } },
   { path: 'orders', component: OrdersComponent,canActivate:[loginGuard] },
   { path: 'orders/new', component:OrderformComponent,canActivate:[loginGuard] },
-  { path: 'orders/edit/:id', component: OrderformComponent,canActivate:[loginGuard] },
+  { path: 'orders/edit/:id', component: OrderformComponent, canActivate: [loginGuard], data: { renderMode: 'ssr' } },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent },
 ];

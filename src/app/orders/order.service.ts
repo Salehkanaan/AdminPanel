@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Order } from './order';
 import { Observable, of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
+
   private orders: Order[] = [
     { id: 1, customerName: 'John Doe', totalAmount: 250, status: 'Pending', date: new Date('2025-03-10') },
     { id: 2, customerName: 'Alice Smith', totalAmount: 120, status: 'Shipped', date: new Date('2025-03-09') },
@@ -17,6 +19,7 @@ export class OrderService {
     { id: 7, customerName: 'James Anderson', totalAmount: 75, status: 'Delivered', date: new Date('2025-03-04') },
     { id: 8, customerName: 'Olivia Thomas', totalAmount: 220, status: 'Pending', date: new Date('2025-03-03') }
   ];
+ 
   getOrders(): Observable<Order[]> {
     return of(this.orders)
   }
@@ -26,6 +29,7 @@ export class OrderService {
    addOrder(order:Order): void {
       order.id = this.orders.length + 1;
       this.orders.push(order);
+    
     }
   updateOrder(updatedOrder: Order): void {
     const index = this.orders.findIndex(order => order.id === updatedOrder.id);

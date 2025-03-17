@@ -3,6 +3,8 @@ import { provideRouter } from '@angular/router';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { routes } from './app.routes';
+import { provideServerRendering } from '@angular/platform-server';
+import { PrerenderFallback } from '@angular/ssr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -10,5 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
      provideRouter(routes),
       provideClientHydration(withEventReplay()),
+      provideServerRendering(),
+     
       ]
 };

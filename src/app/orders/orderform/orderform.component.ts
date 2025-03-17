@@ -9,6 +9,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { IonDatetime } from '@ionic/angular/standalone';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-orderform',
   templateUrl: './orderform.component.html',
@@ -18,6 +19,7 @@ import { IonDatetime } from '@ionic/angular/standalone';
   ]
 })
 export class OrderformComponent  implements OnInit {
+  order$!: Observable<Order | undefined>;
 
   order: Order = {
     id: 0,
@@ -36,14 +38,20 @@ export class OrderformComponent  implements OnInit {
     ) { }
   
     ngOnInit() {
-      const id = this.route.snapshot.paramMap.get('id');
+      let id:number=0;
+      this.route.paramMap.subscribe(params => {
+        id = Number(params.get('id')); // Get the 'id' from URL and convert to number
+        this.orderService.getOrderById(id).subscribe((order) => {
+          if (order) this.order = order;
+        }); });
       if (id) {
         this.isEditing = true;
         this.isUpdate=true;
-        let id1 = parseInt(id);
-        this.orderService.getOrderById(id1).subscribe((order) => {
-          if (order) this.order = order;
-        });
+        // let id1 = parseInt(id);
+      
+        // this.orderService.getOrderById(id1).subscribe((order) => {
+        //   if (order) this.order = order;
+        // });
       }
     }
   
