@@ -5,13 +5,13 @@ import { provideIonicAngular } from '@ionic/angular/standalone';
 import { routes } from './app.routes';
 import { provideServerRendering } from '@angular/platform-server';
 import { PrerenderFallback } from '@angular/ssr';
+import { serverRoutes } from './app.routes.server';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideIonicAngular(),
     provideZoneChangeDetection({ eventCoalescing: true }),
      provideRouter(routes),
-      provideClientHydration(withEventReplay()),
       provideServerRendering(),
      
       ]
