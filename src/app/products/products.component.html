@@ -3,16 +3,19 @@
 
 <table>
   <tr>
+    <th>Product ID</th>
     <th>Name</th>
     <th>Price</th>
     <th>Category</th>
-
+<th>Description</th>
 
   </tr>
   <tr *ngFor="let product of products">
+    <td>{{ product.id }}</td>
     <td>{{ product.name }}</td>
     <td>{{ product.price | currency }}</td>
     <td>{{ product.category }}</td>
+    <td>{{ product.description }}</td>
     <td class="button-group">
       <button class="btn-edit" (click)="editProduct(product.id)">Edit</button>
       <button class="btn-warning" (click)="deleteProduct(product.id)">Delete</button>

@@ -17,7 +17,8 @@ import { PrerenderFallback } from '@angular/ssr';
 export class ProductFormComponent implements OnInit {
 
   product: Product = {
-    id: 0, name: '',
+    id: 0,
+    name: '',
     price: 0,
     category: '',
     description: ''
@@ -29,35 +30,48 @@ export class ProductFormComponent implements OnInit {
     private route: ActivatedRoute,
     public router: Router
   ) { }
-product$!: Observable<Product | undefined>;
+  product$!: Observable<Product | undefined>;
 
   ngOnInit() {
     let id: number = 0;
     this.route.paramMap.subscribe(params => {
-      id = Number(params.get('id')); // Get the 'id' from URL and convert to number
-       this.productService.getProductById(id).subscribe((product) => {
-           if (product) this.product = product;
-       });
+      id = Number(params.get('id')); 
     });
     if (id) {
       this.isEditing = true;
+      this.productService.getProductById(id).subscribe((product) => {
+        if (product) this.product = product;
+        else { console.log("order not found") }
+      });
       
-    }
-    // const id = this.route.snapshot.paramMap.get('id');
-    // if (id) {
-    //   this.isEditing = true;
-    //   let id1 = parseInt(id);
-    //   this.productService.getProductById(id1).subscribe((product) => {
-    //     if (product) this.product = product;
-    //   });
-    // }
-  }
 
+    }
+  }
+  successMessage: string = '';
+  errorMessage: string = '';
   saveProduct() {
     if (this.isEditing) {
-      this.productService.updateProduct(this.product);
+      this.productService.updateProduct(this.product).subscribe(
+        response => {
+          this.successMessage = 'product updated successfully!';
+          console.log(response);
+        },
+        error => {
+          this.errorMessage = 'Error updating product';
+          console.error(error);
+        }
+      );;
     } else {
-      this.productService.addProduct(this.product);
+      this.productService.addProduct(this.product).subscribe(
+        response => {
+          this.successMessage = 'Product added successfully!';
+          console.log(response);
+        },
+        error => {
+          this.errorMessage = 'Error adding Product';
+          console.error(error);
+        }
+      );;
     }
     this.router.navigate(['/products']);
   }

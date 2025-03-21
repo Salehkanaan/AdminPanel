@@ -1,7 +1,7 @@
 export interface Order{
-    id:number,
+    id?:number,
     customerName:string,
     totalAmount:number,
     status:string,
-    date:Date
+    date:Date 
 } 

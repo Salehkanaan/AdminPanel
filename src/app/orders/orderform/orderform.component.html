@@ -2,10 +2,6 @@
   <h2>{{ isEditing ? 'Edit Order' : 'Add New Order' }}</h2>
   <form (ngSubmit)="saveOrder()" >
     <div class="form-group">
-      <label>Id:</label>
-      <input type="text" [(ngModel)]="order.id" [disabled]="isUpdate" name="id" required class="form-control" />
-    </div>
-    <div class="form-group">
       <label>Customer Name:</label>
       <input type="text" [(ngModel)]="order.customerName" [disabled]="isUpdate" name="customerName" required class="form-control" />
     </div>
@@ -14,7 +10,7 @@
       <label>TotalAmount:</label>
       <input type="number" [(ngModel)]="order.totalAmount" [disabled]="isUpdate" name="totalAmount" required class="form-control" />
     </div>
-
+<!-- .toISOString().split('T')[0] -->
     <div class="form-group">
       <label>Status:</label>
       <input type="text" [(ngModel)]="order.status" name="status" required class="form-control" />
@@ -22,7 +18,7 @@
 
     <div class="form-group">
       <label>Date:</label>
-      <input type="datetime" [(ngModel)]="order.date.toISOString().split('T')[0]" name="date" [disabled]="isUpdate" class="form-control"/>
+      <input type="datetime" [(ngModel)]="order.date" name="date" [disabled]="isUpdate" class="form-control"/>
     </div>
 
     <div class="button-group">
@@ -32,3 +28,4 @@
 
   </form>
 </div>
+

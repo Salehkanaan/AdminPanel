@@ -24,18 +24,30 @@ export class ProductsComponent  implements OnInit {
   loadProducts() {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
-    });
+    },
+      (error) => {
+        console.error('Error fetching products', error);
+      });
   }
 
   deleteProduct(id: number) {
     if (confirm('Are you sure you want to delete this product?')) {
-      this.productService.deleteProduct(id);
-      this.loadProducts();
+      this.productService.deleteProduct(id).subscribe(
+        () => {
+          console.log('Order deleted successfully');
+         this.loadProducts();
+        },
+        error => {
+          console.error('Error deleting order:', error);
+          alert('There was an error deleting the order. Please try again.');
+        }
+      )
+      
     }
   }
 
   editProduct(id: number) {
-    this.router.navigate(['/products/edit', id]);
+    this.router.navigate(['./products/edit', id]);
   }
 
 }

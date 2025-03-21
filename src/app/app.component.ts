@@ -5,10 +5,11 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { LoginComponent } from "./login/login.component";
 import { AdminNavComponent } from "./admin-nav/admin-nav.component";
 import { IonicModule } from '@ionic/angular';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [AdminNavComponent,IonicModule,RouterModule],
+  imports: [AdminNavComponent,IonicModule,RouterModule,HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

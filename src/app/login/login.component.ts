@@ -17,10 +17,10 @@ password:string='';
 
   ngOnInit() {}
   login() {
-    if (this.loginService.Login(this.email, this.password)) {
+    if (this.loginService.Login(this.email, this.password)) 
 
       this.route.navigate(['/dashboard'])
 
-    }
+    
   }
 }

@@ -16,10 +16,12 @@
     <td>{{order.customerName}}</td>
     <td>{{ order.totalAmount| currency }}</td>
     <td>{{ order.status }}</td>
-    <td>{{order.date.toISOString().split('T')[0]}}</td>
+    <td>{{order.date}}</td>
     <td class="button-group">
       <button class="btn-edit" (click)="editOrder(order.id)">Edit</button>
       <button class="btn-warning" (click)="deleteOrder(order.id)">Delete</button>
     </td>
   </tr>
 </table>
+
+

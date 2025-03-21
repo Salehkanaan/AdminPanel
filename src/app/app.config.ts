@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { provideServerRendering } from '@angular/platform-server';
 import { PrerenderFallback } from '@angular/ssr';
 import { serverRoutes } from './app.routes.server';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
      provideRouter(routes),
       provideServerRendering(),
+      provideHttpClient(withFetch())
      
       ]
 };
