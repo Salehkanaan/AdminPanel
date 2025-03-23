@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DashboardComponent } from './dashboard.component';
+import { DashboardComponent } from './dash-board.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

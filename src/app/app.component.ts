@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { IonButtons } from '@ionic/angular/standalone';
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { DashboardComponent } from "./dash-board/dash-board.component";
 import { LoginComponent } from "./login/login.component";
 import { AdminNavComponent } from "./admin-nav/admin-nav.component";
 import { IonicModule } from '@ionic/angular';

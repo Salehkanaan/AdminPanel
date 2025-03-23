@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { DashboardService } from './dashboard.service';
-import { Order } from './dashboard';
+import { DashboardService } from './dash-board.service';
+import { Order } from './dash-board.interface';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  templateUrl: './dash-board.component.html',
+  styleUrls: ['./dash-board.component.scss'],
   imports:[IonicModule,RouterModule,CommonModule]
 })
 export class DashboardComponent  implements OnInit {

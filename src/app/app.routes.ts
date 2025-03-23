@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { NotfoundComponent } from './notfound/notfound.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { NotfoundComponent } from './not-found/not-found.component';
+import { DashboardComponent } from './dash-board/dash-board.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductFormComponent } from './products/product-form/product-form.component';
-import { OrderformComponent } from './orders/orderform/order-form.component';
+import { OrderformComponent } from './orders/order-form/order-form.component';
 import { loginGuard } from './guard/login.guard';
 
 
