@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-orderform',
   standalone: true,
-  templateUrl: './orderform.component.html',
-  styleUrls: ['./orderform.component.scss'],
+  templateUrl: './order-form.component.html',
+  styleUrls: ['./order-form.component.scss'],
   imports: [CommonModule, FormsModule, RouterModule,
 
   ]

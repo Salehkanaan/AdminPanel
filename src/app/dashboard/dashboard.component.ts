@@ -31,9 +31,12 @@ export class DashboardComponent  implements OnInit {
       this.usersCount = stats.users;
     });
 
-    this.dashboardService.getLatestProducts().subscribe(products => {
-      this.latestProducts = products;
-    });
+    this.dashboardService.getLatestProducts().subscribe((data) => {
+      this.latestProducts = data;
+    },
+      (error) => {
+        console.error('Error fetching products', error);
+      });
 
     this.dashboardService.getLatestOrders().subscribe(orders => {
       this.latestOrders = orders;

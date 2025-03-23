@@ -25,7 +25,7 @@
           <th>Price</th>
           <th>Category</th>
         </tr>
-        <tr *ngFor="let product of latestProducts">
+        <tr *ngFor="let product of latestProducts.slice(0, 5)">
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.category }}</td>
@@ -43,7 +43,7 @@
           <th>Status</th>
           <th>Transaction Date</th>
         </tr>
-        <tr *ngFor="let order of latestOrders">
+        <tr *ngFor="let order of latestOrders.slice(0, 5)">
         <td>{{ order.id }}</td>
     <td>{{order.customerName}}</td>
     <td>{{ order.totalAmount| currency }}</td>

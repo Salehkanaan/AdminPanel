@@ -39,7 +39,6 @@ export class ProductsComponent  implements OnInit {
         },
         error => {
           console.error('Error deleting order:', error);
-          alert('There was an error deleting the order. Please try again.');
         }
       )
       

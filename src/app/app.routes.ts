@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductFormComponent } from './products/product-form/product-form.component';
-import { OrderformComponent } from './orders/orderform/orderform.component';
+import { OrderformComponent } from './orders/orderform/order-form.component';
 import { loginGuard } from './guard/login.guard';
 
 
