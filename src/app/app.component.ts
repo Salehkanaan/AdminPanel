@@ -11,7 +11,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   selector: 'app-root',
   imports: [AdminNavComponent,IonicModule,RouterModule,HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  
 })
 export class AppComponent {
   title = 'adminpanel';

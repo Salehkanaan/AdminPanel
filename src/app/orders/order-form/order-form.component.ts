@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 
   ]
 })
-export class OrderformComponent implements OnInit {
+export class OrderFormComponent implements OnInit {
   order$!: Observable<Order | undefined>;
 
   order: Order = {

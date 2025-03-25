@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { OrdersComponent } from './orders.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('OrdersComponent', () => {
   let component: OrdersComponent;

@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { AdminNavComponent } from './admin-nav.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('AdminNavComponent', () => {
   let component: AdminNavComponent;
@@ -10,7 +13,8 @@ describe('AdminNavComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AdminNavComponent ],
-      imports: [IonicModule.forRoot()]
+     imports: []
+      
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdminNavComponent);

@@ -5,7 +5,7 @@ import { DashboardComponent } from './dash-board/dash-board.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductFormComponent } from './products/product-form/product-form.component';
-import { OrderformComponent } from './orders/order-form/order-form.component';
+import { OrderFormComponent } from './orders/order-form/order-form.component';
 import { loginGuard } from './guard/login.guard';
 
 
@@ -16,8 +16,8 @@ export const routes: Routes = [
   { path: 'products/new', component: ProductFormComponent, canActivate: [loginGuard] },
   { path: 'products/edit/:id', component: ProductFormComponent, canActivate: [loginGuard] },
   { path: 'orders', component: OrdersComponent, canActivate: [loginGuard] },
-  { path: 'orders/new', component: OrderformComponent, canActivate: [loginGuard] },
-  { path: 'orders/edit/:id', component: OrderformComponent, canActivate: [loginGuard] },
+  { path: 'orders/new', component: OrderFormComponent, canActivate: [loginGuard] },
+  { path: 'orders/edit/:id', component: OrderFormComponent, canActivate: [loginGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent },
 ];
