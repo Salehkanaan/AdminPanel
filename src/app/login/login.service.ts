@@ -1,23 +1,36 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  isLoggedIn: boolean = false;
+  public isLoggedIn: boolean = false;
    
-  private apiUrl = 'http://localhost:3000/login';
+  public apiUrl = 'http://localhost:3000/login';
   constructor(private http:HttpClient) { }
-  Login(email: string, password: string): boolean {
-    if (this.http.post(this.apiUrl, { email, password })){
-      this.isLoggedIn = true;
-      return true
-   }else{}
-   return this.isLoggedIn;
-  
+  Login(email: string, password: string): Observable<boolean> {
+    return this.http.post<{ message: string }>(this.apiUrl, { email, password }).pipe(
+      map((response) => {
+        // Check if login was successful
+        if (response.message === 'Login successful') {
+          this.isLoggedIn = true;
+          return true;
+        }
+        this.isLoggedIn = false;
+        return false;
+      }),
+      catchError(() => {
+        this.isLoggedIn = false;
+        return [false]; // Handle errors gracefully
+      })
+    );
   }
+  getIsLoggedIn(): boolean {
+    return this.isLoggedIn;
+  }
+
   Logout() {
    
       this.isLoggedIn = false;

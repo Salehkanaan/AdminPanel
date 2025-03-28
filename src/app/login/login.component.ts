@@ -17,10 +17,20 @@ password:string='';
 
   ngOnInit() {}
   login() {
-    if (this.loginService.Login(this.email, this.password)) 
-
-      this.route.navigate(['/dashboard'])
-
-    
+    // Use subscribe to handle the Observable returned by Login()
+    this.loginService.Login(this.email, this.password).subscribe({
+      next: (isLoggedIn) => {
+        if (isLoggedIn) {
+          // If login is successful, navigate to the dashboard
+          this.route.navigate(['/dashboard']);
+        } else {
+          console.log('Login failed');
+          // Optionally show an error message
+        }
+      },
+      error: (err) => {
+        console.error('Login error:', err);
+      },
+    });
   }
 }

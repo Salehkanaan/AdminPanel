@@ -3,26 +3,30 @@ import { Sequelize } from 'sequelize';
 import { DataTypes } from "sequelize";
 import express from 'express';
 import cors from 'cors';
-
+import bcrypt from 'bcrypt'
 const app = express();
 app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
-
+const PORT = process.env['PORT'] || 3000;
 /* Login */
 const sequelize = new Sequelize("admin", "root", "", {
   host: "localhost",
   dialect: "mysql",
 });
-const User = sequelize.define("User", {
+const User = sequelize.define("login", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true, // Auto-increment the id
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
   password: {
     type: DataTypes.STRING,  // Stored as plain text
     allowNull: false,
-  },
+  }
 
 }, {
   timestamps: false,
@@ -30,23 +34,35 @@ const User = sequelize.define("User", {
 
 },
 );
-sequelize.sync()
-  .then(() => console.log("Database connected"))
-  .catch(err => console.error("Database connection error:", err));
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Database connected");
+    app.listen(PORT, () => console.log("Server running on port 3000"));
+  })
+  .catch((err) => console.error("Database connection error:", err));
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-
   try {
+    console.log("Login attempt:", email); // Log email to track request flow
     const user = await User.findOne({ where: { email } });
-
-    if (!user || user.password !== password) {
+    if (!user) {
+      
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+    if ( user.password !== password) {
+      console.log("Invalid login attempt");
       return res.status(401).json({ message: "Invalid email or password" });
     }
     res.json({ message: "Login successful" });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    console.error("Error in login:", error); // Log full error details
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
+
 /*Order */
 const Order = sequelize.define('Order', {
   id: {
@@ -108,33 +124,30 @@ app.post('/orders/new', async (req, res) => {
 });
 
 app.put('/orders/:id', async (req, res) => {
-  const { id } = req.params; 
-  const { customerName, totalAmount, status, date } = req.body; 
+  const { id } = req.params;
+  const { customerName, totalAmount, status, date } = req.body;
 
   try {
-    const result = await sequelize.query(
-      `UPDATE orders 
-       SET customerName = :customerName, totalAmount = :totalAmount, status = :status, date = :date 
-       WHERE id = :id`,
-      {
-        replacements: { customerName, totalAmount, status, date, id },
-        type: sequelize.QueryTypes.UPDATE,
-      }
-    );
+    // Check if the order exists
+    const order = await Order.findByPk(id);
 
-    if (result[0] > 0) {  
-      res.json({
-        message: 'Order updated successfully',
-        updatedOrderId: id,
-      });
-    } else {
-      res.status(404).json({ error: 'Order not found' });
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
     }
+
+    // Update the order
+    await order.update({ customerName, totalAmount, status, date });
+
+    res.json({
+      message: 'Order updated successfully',
+      updatedOrderId: id,
+    });
   } catch (error) {
     console.error('Error updating order:', error);
     res.status(500).json({ error: 'Error updating order' });
   }
 });
+
 
 app.get('/orders/:id', async (req, res) => {
   try {
@@ -158,19 +171,13 @@ app.delete('/orders/:id', async (req, res) => {
   const orderId = req.params.id;
 
   try {
-  
-    const result = await sequelize.query(
-      `DELETE FROM orders WHERE id = :id`,
-      {
-        replacements: { id: orderId },  
-        type: sequelize.QueryTypes.DELETE, 
-      }
-    );
 
-  
-    if (result[0] === 0) { 
-      return res.status(404).json({ error: 'Order not found' });
-    }
+      const order = await Order.findByPk(req.params.id);
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      await order.destroy();
 
     res.status(204).send();  
   } catch (error) {
@@ -238,33 +245,28 @@ app.post('/products/new', async (req, res) => {
   }
 });
 app.put('/products/:id', async (req, res) => {
-  const { id } = req.params;  
-  const { name, price, category, description } = req.body; 
+  const { id } = req.params;
+  const { name, price, category, description } = req.body;
 
   try {
-    const result = await sequelize.query(
-      `UPDATE products 
-       SET name = :name, price = :price, category = :category, description = :description
-       WHERE id = :id`,
-      {
-        replacements: { name, price, category, description, id },
-        type: sequelize.QueryTypes.UPDATE,
-      }
-    );
+    const product = await Product.findByPk(id);
 
-    if (result[0] > 0) {  
-      res.json({
-        message: 'Product updated successfully',
-        updatedProductId: id,
-      });
-    } else {
-      res.status(404).json({ error: 'Product not found' });
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
     }
+
+    await product.update({ name, price, category, description });
+
+    res.json({
+      message: 'Product updated successfully',
+      updatedProductId: id,
+    });
   } catch (error) {
     console.error('Error updating product:', error);
     res.status(500).json({ error: 'Error updating product' });
   }
 });
+
 app.get('/products/:id', async (req, res) => {
   try {
     const productId = req.params.id;
@@ -276,7 +278,6 @@ app.get('/products/:id', async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-  
     res.json(product);
   } catch (error) {
     console.error('Error fetching product by ID:', error);
@@ -288,16 +289,12 @@ app.delete('/products/:id', async (req, res) => {
 
   try {
   
-    const result = await sequelize.query(
-      `DELETE FROM products WHERE id = :id`,
-      {
-        replacements: { id: productId }, 
-        type: sequelize.QueryTypes.DELETE,  
-      }
-    ) 
-    if (result[0] === 0) {  // `result[0]` contains the number of affected rows
+    const product = await Product.findByPk(req.params.id);
+    if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
+
+    await product.destroy();
     res.status(204).send();  // No content (product deleted successfully)
   } catch (error) {
     console.error('Error deleting product:', error);
@@ -306,8 +303,8 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 // Listerning
-const PORT = process.env['PORT'] || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 export default app;

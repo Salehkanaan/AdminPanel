@@ -1,15 +1,8 @@
 import * as chai from 'chai';
-import chaiHttp, { request } from "chai-http";
+import chaiHttp from "chai-http";
  import app from "../../server.mjs";
-import express from 'express';
-import cors from 'cors';
+import request from 'supertest'
 
-// const app = express();
-// app.use(cors({ origin: 'http://localhost:4200' }));
-// app.use(express.json());
-// const app=require('./server.mjs')
-// const chai=require('chai')
-// const chaiHttp=require('chai-http')
 const { expect } = chai;
  chai.use(chaiHttp);
 describe("Api Test", () => {
@@ -17,7 +10,7 @@ describe("Api Test", () => {
         it("should return 401 for invalid credentials", (done) => {
            request(app)
                 .post("/login")
-                .send({ email: "admin@gmail.com", password: "admin" })
+               .send({ email: "admin@gmail.com", password: "admin" })
                 .end((err , res ) => {
                    expect(res).to.have.status(401);
                     expect(res.body).to.have.property("message", "Invalid email or password");
@@ -28,7 +21,7 @@ describe("Api Test", () => {
         it("should return success message for valid credentials", (done) => {
             request(app)
                 .post("/login")
-                .send({ email: "admin@gmail.com", password: "admin" }) // Use real credentials from DB
+                .send({email: "admin@gmail.com", password: "admin" }) // Use real credentials from DB
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.property("message", "Login successful");
@@ -41,8 +34,8 @@ describe("Api Test", () => {
         let orderId;
 
         it("should fetch all orders", (done) => {
-            chai
-                .request(app)
+           
+                request(app)
                 .get("/orders")
                 .end((err, res) => {
                     expect(res).to.have.status(200);
@@ -52,8 +45,8 @@ describe("Api Test", () => {
         });
 
         it("should create a new order", (done) => {
-            chai
-                .request(app)
+            
+                request(app)
                 .post("/orders/new")
                 .send({
                     customerName: "John Doe",
@@ -70,8 +63,8 @@ describe("Api Test", () => {
         });
 
         it("should get order by ID", (done) => {
-            chai
-                .request(app)
+           
+            request(app)
                 .get(`/orders/${orderId}`)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
@@ -81,8 +74,8 @@ describe("Api Test", () => {
         });
 
         it("should update an order by its ID", (done) => {
-            chai
-                .request(app)
+           
+                request(app)
                 .put(`/orders/${orderId}`)
                 .send({
                     customerName: "Jane Doe",
@@ -98,8 +91,8 @@ describe("Api Test", () => {
         });
 
         it("should delete an order by its ID", (done) => {
-            chai
-                .request(app)
+           
+                request(app)
                 .delete(`/orders/${orderId}`)
                 .end((err, res) => {
                     expect(res).to.have.status(204);
@@ -113,8 +106,7 @@ describe("Api Test", () => {
         let productId;
 
         it("should fetch all products", (done) => {
-            chai
-                .request(app)
+            request(app)
                 .get("/products")
                 .end((err, res ) => {
                     expect(res).to.have.status(200);
@@ -124,8 +116,7 @@ describe("Api Test", () => {
         });
 
         it("should create a new product", (done) => {
-            chai
-                .request(app)
+            request(app)
                 .post("/products/new")
                 .send({
                     name: "Laptop",
@@ -142,8 +133,7 @@ describe("Api Test", () => {
         });
 
         it("should get product by ID", (done) => {
-            chai
-                .request(app)
+            request(app)
                 .get(`/products/${productId}`)
                 .end((err , res  ) => {
                     expect(res).to.have.status(200);
@@ -153,8 +143,7 @@ describe("Api Test", () => {
         });
 
         it("should update a product by ID", (done) => {
-            chai
-                .request(app)
+            request(app)
                 .put(`/products/${productId}`)
                 .send({
                     name: "Gaming Laptop",
@@ -170,8 +159,7 @@ describe("Api Test", () => {
         });
 
         it("should delete a product by ID", (done) => {
-            chai
-                .request(app)
+            request(app)
                 .delete(`/products/${productId}`)
                 .end((err , res ) => {
                     expect(res).to.have.status(204);
