@@ -9,8 +9,9 @@ app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
 const PORT = process.env['PORT'] || 3000;
 /* Login */
-const sequelize = new Sequelize("admin", "root", "", {
-  host: "localhost",
+const sequelize = new Sequelize(process.env.DBName, process.env.DBUser,
+  process.env.DBPass, {
+  host: process.env.DBHost,
   dialect: "mysql",
 });
 const User = sequelize.define("login", {
