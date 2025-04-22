@@ -3,18 +3,15 @@ import { Sequelize } from 'sequelize';
 import { DataTypes } from "sequelize";
 import express from 'express';
 import cors from 'cors';
-import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
+import bcrypt from 'bcrypt'
 const app = express();
 app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
-const PORT = process.env.PORT || 3000;
-dotenv.config();
+const PORT = process.env['PORT'] || 3000;
 /* Login */
-
 const sequelize = new Sequelize(process.env.DBName, process.env.DBUser,
   process.env.DBPass, {
-    host: process.env.DBHost,
+  host: process.env.DBHost,
   dialect: "mysql",
 });
 const User = sequelize.define("login", {
