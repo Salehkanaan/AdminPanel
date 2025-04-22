@@ -13,6 +13,7 @@ const sequelize = new Sequelize(process.env.DBName, process.env.DBUser,
   process.env.DBPass, {
   host: process.env.DBHost,
   dialect: "mysql",
+  logging:false
 });
 const User = sequelize.define("login", {
   id: {
@@ -49,10 +50,10 @@ app.post("/login", async (req, res) => {
     console.log("Login attempt:", email); // Log email to track request flow
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      
+
       return res.status(401).json({ message: "Invalid email or password" });
     }
-    if ( user.password !== password) {
+    if (user.password !== password) {
       console.log("Invalid login attempt");
       return res.status(401).json({ message: "Invalid email or password" });
     }
@@ -88,14 +89,14 @@ const Order = sequelize.define('Order', {
     allowNull: false,
   },
 }, {
-  tableName: 'orders', 
-  timestamps: false,    
+  tableName: 'orders',
+  timestamps: false,
 });
 
 app.get('/orders', async (req, res) => {
   try {
     const orders = await Order.findAll();
-    res.json(orders); 
+    res.json(orders);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching orders' });
   }
@@ -154,8 +155,8 @@ app.get('/orders/:id', async (req, res) => {
   try {
     const orderId = req.params.id;
 
-  
-    const order = await Order.findByPk(orderId);  
+
+    const order = await Order.findByPk(orderId);
 
     if (!order) {
       return res.status(404).json({ error: 'Order not found' });
@@ -173,14 +174,14 @@ app.delete('/orders/:id', async (req, res) => {
 
   try {
 
-      const order = await Order.findByPk(req.params.id);
-      if (!order) {
-        return res.status(404).json({ error: 'Order not found' });
-      }
+    const order = await Order.findByPk(req.params.id);
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
 
-      await order.destroy();
+    await order.destroy();
 
-    res.status(204).send();  
+    res.status(204).send();
   } catch (error) {
     console.error('Error deleting order:', error);
     res.status(500).json({ error: 'Error deleting order' });
@@ -209,16 +210,16 @@ const Product = sequelize.define('Product', {
   },
   description: {
     type: DataTypes.STRING,
-    allowNull: true,  
+    allowNull: true,
   }
 }, {
-  tableName: 'products',  
-  timestamps: false,     
+  tableName: 'products',
+  timestamps: false,
 });
 app.get('/products', async (req, res) => {
   try {
     const products = await Product.findAll();
-    res.json(products);  
+    res.json(products);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching products' });
   }
@@ -272,8 +273,8 @@ app.get('/products/:id', async (req, res) => {
   try {
     const productId = req.params.id;
 
-   
-    const product = await Product.findByPk(productId);  
+
+    const product = await Product.findByPk(productId);
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
@@ -289,7 +290,7 @@ app.delete('/products/:id', async (req, res) => {
   const productId = req.params.id;
 
   try {
-  
+
     const product = await Product.findByPk(req.params.id);
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
