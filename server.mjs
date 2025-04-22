@@ -3,17 +3,34 @@ import { Sequelize } from 'sequelize';
 import { DataTypes } from "sequelize";
 import express from 'express';
 import cors from 'cors';
-import bcrypt from 'bcrypt'
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
 app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
-const PORT = process.env['PORT'] || 3000;
+const PORT = process.env['PORT']|| 3000;
 /* Login */
-const sequelize = new Sequelize(process.env.DBName, process.env.DBUser,
-  process.env.DBPass, {
-  host: process.env.DBHost,
-  dialect: "mysql",
-});
+const sequelize = new Sequelize(
+  process.env.DBName,
+  process.env.DBUser,
+  process.env.DBPass,
+  {
+    host: process.env.DBHost,
+    dialect: 'mysql',
+    port: 3306,
+    logging: console.log,
+  }
+);
+// const sequelize = new Sequelize(
+//   'b8ivdahm8w6uqhwmkvdb', // DB name
+//   'uhcscgl9jadbcdvw',     // DB user
+//   '67Nikxl1ssBgTeO44nZw', // DB password
+//   {
+//     host: 'b8ivdahm8w6uqhwmkvdb-mysql.services.clever-cloud.com',
+//     dialect: 'mysql',
+//     logging: false, // Optional: turn off SQL logs
+//   }
+// );
 const User = sequelize.define("login", {
   id: {
     type: DataTypes.INTEGER,
