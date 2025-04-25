@@ -18,21 +18,21 @@ app.options('*', cors()); // This will handle OPTIONS requests globally
 app.use(express.json());
 const PORT = process.env.PORT|| 3000;
 /* Login */
-const sequelize = new Sequelize(
-  process.env.DBName,
-  process.env.DBUser,
-  process.env.DBPass,
-  {
-    host: process.env.DBHost,
-    dialect: 'mysql',
-    port: process.env.DB_PORT || 3306,
-    logging: console.log,
-  }
-);
-// const sequelize = new Sequelize('mysql://root:uMWlnndsqkXpbGoIkDyKXorIPbWbdewu@switchyard.proxy.rlwy.net:45591/railway', {
-//   dialect: 'mysql',
-//   logging: false, // Optional: Disable query logging for production
-// });
+// const sequelize = new Sequelize(
+//   process.env.DBName,
+//   process.env.DBUser,
+//   process.env.DBPass,
+//   {
+//     host: process.env.DBHost,
+//     dialect: 'mysql',
+//     port: process.env.DB_PORT || 3306,
+//     logging: console.log,
+//   }
+// );
+const sequelize = new Sequelize(process.env.DBUrl, {
+  dialect: 'mysql',
+  logging: false, // Optional: Disable query logging for production
+});
 const User = sequelize.define("login", {
   id: {
     type: DataTypes.INTEGER,
