@@ -18,6 +18,6 @@ export const routes: Routes = [
   { path: 'orders', component: OrdersComponent, canActivate: [loginGuard] },
   { path: 'orders/new', component: OrderFormComponent, canActivate: [loginGuard] },
   { path: 'orders/edit/:id', component: OrderFormComponent, canActivate: [loginGuard] },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '/', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent },
 ];
