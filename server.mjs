@@ -6,31 +6,33 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({
+  origin: ['http://localhost:4200', 'https://admin-production-4feb.up.railway.app','https://adminpanel-ly6v.onrender.com'], // Allow both local and production frontends
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Add any other necessary headers
+  credentials: true // Enable cookies if you need them
+  
+}));
+app.options('*', cors()); // This will handle OPTIONS requests globally
+
 app.use(express.json());
-const PORT = process.env['PORT']|| 3000;
+const PORT = process.env.PORT|| 3000;
 /* Login */
-const sequelize = new Sequelize(
-  process.env.DBName,
-  process.env.DBUser,
-  process.env.DBPass,
-  {
-    host: process.env.DBHost,
-    dialect: 'mysql',
-    port: 3306,
-    logging: console.log,
-  }
-);
 // const sequelize = new Sequelize(
-//   'b8ivdahm8w6uqhwmkvdb', // DB name
-//   'uhcscgl9jadbcdvw',     // DB user
-//   '67Nikxl1ssBgTeO44nZw', // DB password
+//   process.env.DBName,
+//   process.env.DBUser,
+//   process.env.DBPass,
 //   {
-//     host: 'b8ivdahm8w6uqhwmkvdb-mysql.services.clever-cloud.com',
+//     host: process.env.DBHost,
 //     dialect: 'mysql',
-//     logging: false, // Optional: turn off SQL logs
+//     port: process.env.DB_PORT || 3306,
+//     logging: console.log,
 //   }
 // );
+const sequelize = new Sequelize('mysql://root:uMWlnndsqkXpbGoIkDyKXorIPbWbdewu@switchyard.proxy.rlwy.net:45591/railway', {
+  dialect: 'mysql',
+  logging: false, // Optional: Disable query logging for production
+});
 const User = sequelize.define("login", {
   id: {
     type: DataTypes.INTEGER,

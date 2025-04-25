@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DashboardService {
   constructor(private http:HttpClient) { }
- public apiUrl = 'http://localhost:3000/products';
-  public apiUrl1 = 'http://localhost:3000/orders';
+  public apiUrl = 'https://adminpanel-ly6v.onrender.com/products';
+  public apiUrl1 = 'https://adminpanel-ly6v.onrender.com/orders';
 
   getLatestProducts(): Observable<Product[]> {
      return this.http.get<Product[]>(this.apiUrl);

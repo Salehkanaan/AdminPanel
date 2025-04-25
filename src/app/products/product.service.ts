@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProductService {
 
   constructor(private http:HttpClient){}
-  public apiUrl = 'http://localhost:3000/products';
+  public apiUrl = 'https://adminpanel-ly6v.onrender.com/products';
 
   getProducts(): Observable<Product[]> {
      return this.http.get<Product[]>(this.apiUrl);

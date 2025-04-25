@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class OrderService {
-  public apiUrl = 'http://localhost:3000/orders';
+  public apiUrl = 'https://adminpanel-ly6v.onrender.com/orders';
   constructor(private http: HttpClient) { }
 
   getOrders(): Observable<Order[]> {

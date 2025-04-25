@@ -8,7 +8,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 export class LoginService {
   public isLoggedIn: boolean = false;
    
-  public apiUrl = 'http://localhost:3000/login';
+  public apiUrl = 'https://adminpanel-ly6v.onrender.com/login';
   constructor(private http:HttpClient) { }
   Login(email: string, password: string): Observable<boolean> {
     return this.http.post<{ message: string }>(this.apiUrl, { email, password }).pipe(
