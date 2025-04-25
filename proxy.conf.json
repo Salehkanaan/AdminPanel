@@ -1,6 +1,0 @@
-{
-    "/login": {
-        "target": "https://admin-production-4feb.up.railway.app",
-        "secure": true
-    }
-}
